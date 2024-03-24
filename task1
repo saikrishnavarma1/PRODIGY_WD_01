@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Navigation Menu</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #333;
+      padding: 10px 0;
+      z-index: 1000;
+      transition: background-color 0.3s ease;
+    }
+
+    #navbar ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    #navbar li {
+      display: inline-block;
+      margin-right: 20px;
+    }
+
+    .nav-item {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 15px;
+      transition: color 0.3s ease;
+    }
+
+    .nav-item:hover {
+      color: #ff9900;
+    }
+
+    .scrolled {
+      background-color: #222;
+    }
+
+    .content {
+      padding: 80px 20px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .section {
+      background-color: #fff;
+      padding: 20px;
+      margin-bottom: 40px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #333;
+      margin-top: 0;
+    }
+
+    p {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .highlight {
+      color: #ff9900;
+      font-weight: bold;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #ff9900;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #e68a00;
+    }
+  </style>
+</head>
+<body>
+  <nav id="navbar">
+    <ul>
+      <li><a href="#home" class="nav-item">Home</a></li>
+      <li><a href="#about" class="nav-item">About</a></li>
+      <li><a href="#services" class="nav-item">Services</a></li>
+      <li><a href="#contact" class="nav-item">Contact</a></li>
+    </ul>
+  </nav>
+  <div class="content">
+    <div id="home" class="section">
+      <h1>Welcome to our Website!</h1>
+      <p>We are a leading provider of innovative solutions in web development, design, and digital marketing. Our team is dedicated to helping businesses achieve their online goals and stand out in today's competitive market.</p>
+      <p>With our expertise and commitment to excellence, we deliver customized solutions tailored to meet the unique needs of each client. Let us help you create a powerful online presence that drives results and boosts your business success.</p>
+      <a href="#contact" class="btn">Get Started</a>
+    </div>
+    <div id="about" class="section">
+      <h1>About Us</h1>
+      <p>At our company, we believe in the power of innovation and creativity. Our team consists of talented professionals with diverse backgrounds and skills, united by a shared passion for delivering exceptional results.</p>
+      <p>We strive to stay ahead of industry trends and technologies, constantly evolving and adapting to meet the changing needs of our clients. With a focus on collaboration and communication, we ensure that every project is executed with precision and efficiency.</p>
+    </div>
+    <div id="services" class="section">
+      <h1>Our Services</h1>
+      <p>We offer a comprehensive range of services to help businesses succeed in the digital world. From website design and development to digital marketing strategies, we have the expertise to drive your online success.</p>
+      <p>Our services include:</p>
+      <ul>
+        <li>Custom Website Design and Development</li>
+        <li>Responsive Web Development</li>
+        <li>Search Engine Optimization (SEO)</li>
+        <li>Social Media Marketing</li>
+        <li>Pay-Per-Click (PPC) Advertising</li>
+        <li>Email Marketing</li>
+        <li>Content Creation and Management</li>
+        <li>And much more...</li>
+      </ul>
+      <p>Whatever your digital needs may be, we have the solutions to help you achieve your goals and grow your business.</p>
+    </div>
+    <div id="contact" class="section">
+      <h1>Contact Us</h1>
+      <p>Ready to take your business to the next level? Contact us today to discuss your project requirements and discover how we can help you succeed online.</p>
+      <p><span class="highlight">Email:</span> info@example.com</p>
+      <p><span class="highlight">Phone:</span> 123-456-7890</p>
+    </div>
+  </div>
+  <script>
+    window.addEventListener('scroll', function() {
+      var navbar = document.getElementById('navbar');
+      if (window.scrollY > 0) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+
+      var sections = document.querySelectorAll('.section');
+      sections.forEach(function(section) {
+        var top = section.offsetTop - navbar.offsetHeight;
+        var bottom = top + section.offsetHeight;
+        var id = section.getAttribute('id');
+        if (window.scrollY >= top && window.scrollY < bottom) {
+          document.querySelector('.nav-item.active').classList.remove('active');
+          document.querySelector('a[href="#' + id + '"]').classList.add('active');
+        }
+      });
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  
